@@ -57,7 +57,21 @@ The `VECTOR` data type has been implemented. The following functionality exists:
 *Not yet implemented.*
 
 ### FORWARD_LIST
-*Not yet implemented.*
+The `FORWARD_LIST` data type has been implemented. The following functionality exists:
+
+* creation
+* deletion
+* lookup
+  * front
+  * back
+* clearing (remove everything from list)
+* check if empty
+* iterate and apply function
+  * accepts a function pointer and calls it on each value
+* merging of two lists
+* pop value from front
+* push value to front
+* remove value from list
 
 ### LIST
 *Not yet implemented.*
