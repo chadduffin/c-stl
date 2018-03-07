@@ -2,6 +2,7 @@
 
 void array_create(ARRAY **array, unsigned int size) {
   ERROR_NULL(array);
+  ERROR_RANGE(size, 0, UINT_MAX);
 
   *array = (ARRAY*)(malloc(sizeof(ARRAY)));
 

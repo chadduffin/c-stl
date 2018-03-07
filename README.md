@@ -17,7 +17,7 @@ union DATA {
 ## Containers
 
 ### ARRAY
-The `ARRAY` data type has been implemented. The following functionality has been implemented:
+The `ARRAY` data type has been implemented. The following functionality exists:
 
 * creation
 * deletion
@@ -25,15 +25,33 @@ The `ARRAY` data type has been implemented. The following functionality has been
   * arbitrary
   * front
   * back
-* clearing (set to 0)
+* clearing (set all values to 0)
 * check if empty
-* filling (custom value)
+* filling (set all values to custom value)
 * iterate and apply function
   * accepts a function pointer and calls it on each value
 * check the size
 
 ### VECTOR
-*Not yet implemented.*
+The `VECTOR` data type has been implemented. The following functionality exists:
+
+* creation
+* deletion
+* lookup
+  * arbitrary
+  * front
+  * back
+* check capacity
+* clearing (remove everything from vector)
+* check if empty
+* erasing (specified index)
+* iterate and apply function
+  * accepts a function pointer and calls it on each value
+* insert a value (specified index)
+* pop value from end
+* push value to end
+* resizing
+* check size
 
 ### DEQUE
 *Not yet implemented.*

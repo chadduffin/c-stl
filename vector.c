@@ -15,7 +15,13 @@ void vector_delete(VECTOR **vector, void (*f)(DATA*)) {
   ERROR_NULL(*vector);
   ERROR_NULL((*vector)->array_);
 
-  array_delete(&((*vector)->array_), f);
+  VECTOR *tmp = *vector;
+
+  array_delete(&(tmp->array_), f);
+
+  free(tmp);
+
+  *vector = NULL;
 }
 
 DATA* vector_at(VECTOR *vector, unsigned int index) {
@@ -99,7 +105,7 @@ void vector_insert(VECTOR *vector, DATA data, unsigned int index) {
     tmp = vector->array_;
   }
 
-  for (unsigned int i = 0; i < vector->size_+1; i++) {
+  for (unsigned int i = vector->size_;; i--) {
     if (i < index) {
       tmp->data_[i] = vector->array_->data_[i];
     } else if (i > index) {
@@ -107,6 +113,8 @@ void vector_insert(VECTOR *vector, DATA data, unsigned int index) {
     } else {
       tmp->data_[i] = data;
     }
+
+    if (i == 0) { break; }
   }
 
   if (vector->array_ != tmp) {

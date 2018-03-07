@@ -1,6 +1,7 @@
 #ifndef __ARRAY__
 #define __ARRAY__
 
+#include <limits.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
