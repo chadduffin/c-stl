@@ -19,11 +19,11 @@ struct ARRAY {
 void         array_create (ARRAY **array, unsigned int size);
 void         array_delete (ARRAY **array, void (*f)(DATA*));
 
-DATA*        array_at     (ARRAY *array, int index);
+DATA*        array_at     (ARRAY *array, unsigned int index);
 DATA*        array_back   (ARRAY *array);
 void         array_clear  (ARRAY *array);
 bool         array_empty  (ARRAY *array);
-DATA*        array_fill   (ARRAY *array, DATA data);
+void         array_fill   (ARRAY *array, DATA data);
 DATA*        array_front  (ARRAY *array);
 void         array_handle (ARRAY *array, void (*f)(DATA*));
 unsigned int array_size   (ARRAY *array);

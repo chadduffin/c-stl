@@ -7,7 +7,7 @@ The C STL contains interface and implementation files that mimic the C++ STL.
 The basic data unit used for the containers can be found in `generics.h`. This type is a basic `union` that can be used to represent any desired data type.
 
 ```c
-typedef union DATA {
+union DATA {
   // int my_int;
   // float my_float;
   // char *my_string;

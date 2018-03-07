@@ -28,7 +28,7 @@ void array_delete(ARRAY **array, void (*f)(DATA*)) {
   *array = NULL;
 }
 
-DATA* array_at(ARRAY *array, int index) {
+DATA* array_at(ARRAY *array, unsigned int index) {
   ERROR_NULL(array);
   ERROR_NULL(array->data_);
   ERROR_RANGE(index, 0, array->size_);
@@ -56,7 +56,7 @@ bool array_empty(ARRAY *array) {
   return !array->size_;
 }
 
-DATA* array_fill(ARRAY *array, DATA data) {
+void array_fill(ARRAY *array, DATA data) {
   ERROR_NULL(array);
   ERROR_NULL(array->data_);
 
@@ -74,6 +74,7 @@ DATA* array_front(ARRAY *array) {
 void array_handle(ARRAY *array, void (*f)(DATA*)) {
   ERROR_NULL(array);
   ERROR_NULL(array->data_);
+  ERROR_NULL(f);
 
   for (unsigned int i = 0; i < array->size_; i++) {
     f(&(array->data_[i]));
