@@ -2,51 +2,78 @@
 
 The C STL contains interface and implementation files that mimic the C++ STL.
 
-## ARRAY
+## Generic Data Type
+
+The basic data unit used for the containers can be found in `generics.h`. This type is a basic `union` that can be used to represent any desired data type.
+
+```c
+typedef union DATA {
+  // int my_int;
+  // float my_float;
+  // char *my_string;
+};
+```
+
+## Containers
+
+### ARRAY
+The `ARRAY` data type has been implemented. The following functionality has been implemented:
+
+* creation
+* deletion
+* lookup
+  * arbitrary
+  * front
+  * back
+* clearing (set to 0)
+* check if empty
+* filling (custom value)
+* iterate and apply function
+  * accepts a function pointer and calls it on each value
+* check the size
+
+### VECTOR
 *Not yet implemented.*
 
-## VECTOR
+### DEQUE
 *Not yet implemented.*
 
-## DEQUE
+### FORWARD_LIST
 *Not yet implemented.*
 
-## FORWARD_LIST
+### LIST
 *Not yet implemented.*
 
-## LIST
+### STACK
 *Not yet implemented.*
 
-## STACK
+### QUEUE
 *Not yet implemented.*
 
-## QUEUE
+### PRIORITY_QUEUE
 *Not yet implemented.*
 
-## PRIORITY_QUEUE
+### SET
 *Not yet implemented.*
 
-## SET
+### MULTISET
 *Not yet implemented.*
 
-## MULTISET
+### MAP
 *Not yet implemented.*
 
-## MAP
+### MULTIMAP
 *Not yet implemented.*
 
-## MULTIMAP
+### UNORDERED_SET
 *Not yet implemented.*
 
-## UNORDERED_SET
+### UNORDERED_MULTISET
 *Not yet implemented.*
 
-## UNORDERED_MULTISET
+### UNORDERER_MAP
 *Not yet implemented.*
 
-## UNORDERER_MAP
-*Not yet implemented.*
-
-## UNORDERED_MULTIMAP
+### UNORDERED_MULTIMAP
 *Not yet implemented.*
 
