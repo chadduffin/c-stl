@@ -8,18 +8,29 @@
 
 #include "error.h"
 
-typedef union KEY KEY;
 typedef union DATA DATA;
-
-union KEY {
-  int my_int;
-};
+typedef struct ITERATOR ITERATOR;
 
 union DATA {
   int my_int;
 };
 
-bool greater(KEY *left, KEY *right);
+struct ITERATOR {
+  void *container_;
+  void (*next_)(ITERATOR*), (*prev_)(ITERATOR*);
+  DATA* (*data_)(ITERATOR*);
+
+  union {
+    void *void_;
+    unsigned int uint_;
+  };
+};
+
+void  iterator_delete(ITERATOR **iterator);
+
+DATA* iterator_data(ITERATOR *iterator);
+void  iterator_next(ITERATOR *iterator);
+void  iterator_prev(ITERATOR *iterator);
 
 #endif // GENERICS //
 
