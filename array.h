@@ -13,7 +13,6 @@ typedef struct ARRAY ARRAY;
 
 struct ARRAY {
   unsigned int size_;
-  
   DATA *data_;
 };
 

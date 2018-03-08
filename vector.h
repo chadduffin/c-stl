@@ -17,7 +17,6 @@ typedef struct VECTOR VECTOR;
 
 struct VECTOR {
   unsigned int size_;
-
   ARRAY *array_;
 };
 
