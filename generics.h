@@ -22,3 +22,4 @@ union DATA {
 bool greater(KEY *left, KEY *right);
 
 #endif // GENERICS //
+

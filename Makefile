@@ -9,7 +9,7 @@ EXECUTABLE=stl
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) -o $@ $^ -lncurses -lm
+	$(CC) -o $@ $^
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ $<

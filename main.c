@@ -1,66 +1,102 @@
+#include "list.h"
 #include "array.h"
 #include "vector.h"
 #include "forward_list.h"
 
-void output_forward_list(FORWARD_LIST *list) {
-  FORWARD_LIST_NODE *tmp = list->head_;
+void output_list(LIST *list) {
+  LIST_NODE *tmp = list->head_;
 
   while (tmp) {
     if (tmp->next_) {
-      printf("(data: %i) -> ", tmp->data_.my_int);
+      printf("(%i) -> ", tmp->data_.my_int);
     } else {
-      printf("(data: %i)\n", tmp->data_.my_int);
+      printf("(%i)\n", tmp->data_.my_int);
     }
 
     tmp = tmp->next_;
   }
 }
 
-int main(int argc, char **argv) {
-  DATA data;
-  FORWARD_LIST *list = NULL, *other_list = NULL;
+void output_list_r(LIST *list) {
+  LIST_NODE *tmp = list->tail_;
 
-  forward_list_create(&list);
-  forward_list_create(&other_list);
+  while (tmp) {
+    if (tmp->prev_) {
+      printf("(%i) -> ", tmp->data_.my_int);
+    } else {
+      printf("(%i)\n", tmp->data_.my_int);
+    }
+
+    tmp = tmp->prev_;
+  }
+}
+
+void multiply_by_two(DATA *data) {
+  data->my_int *= 2;
+}
+
+int main(int argc, char **argv) {
+  LIST *a = NULL, *b = NULL;
+  DATA data;
+
+  list_create(&a);
+  list_create(&b);
 
   for (unsigned int i = 0; i < 5; i++) {
     data.my_int = i;
-
-    forward_list_push_front(list, data);
+    list_push_front(a, data);
   }
 
-  for (unsigned int i = 100; i < 105; i++) {
+  for (unsigned int i = 5; i < 10; i++) {
     data.my_int = i;
-
-    forward_list_push_front(other_list, data);
+    list_push_front(b, data);
   }
 
-  output_forward_list(list);
+  output_list(a);
+  output_list(b);
+  output_list_r(a);
+  output_list_r(b);
 
-  data.my_int = 2;
+  printf("Front of a: %i\n", list_front(a)->my_int);
+  printf("Front of b: %i\n", list_front(b)->my_int);
+  printf("Back of a: %i\n", list_back(a)->my_int);
+  printf("Back of b: %i\n", list_back(b)->my_int);
 
-  forward_list_remove(list, data);
+  list_handle(a, multiply_by_two);
 
-  output_forward_list(list);
-  output_forward_list(other_list);
+  output_list(a);
+  output_list_r(a);
 
-  forward_list_merge(list, other_list);
+  list_merge(a, b);
 
-  output_forward_list(list);
-  output_forward_list(other_list);
+  output_list(a);
+  output_list(b);
 
-  printf("back: %i\n", forward_list_back(list)->my_int);
-  printf("front: %i\n", forward_list_front(list)->my_int);
+  if (list_empty(b)) {
+    printf("b is empty\n");
+  }
 
-  printf("the list is %sempty\n", (forward_list_empty(list)) ? "" : "not ");
+  list_pop_back(a);
+  list_pop_back(a);
+  list_pop_front(a);
+  list_pop_front(a);
 
-  forward_list_pop_front(list);
-  forward_list_pop_front(list);
-  forward_list_pop_front(list);
+  output_list(a);
+  output_list_r(a);
 
-  output_forward_list(list);
+  data.my_int = 7;
+  list_remove(a, data);
+  data.my_int = 0;
+  list_remove(a, data);
+  data.my_int = 4;
+  list_remove(a, data);
 
-  forward_list_delete(&list, NULL);
+  output_list(a);
+  output_list_r(a);
+
+  list_delete(&a, NULL);
+  list_delete(&b, NULL);
 
   return 0;
 }
+

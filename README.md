@@ -74,7 +74,23 @@ The `FORWARD_LIST` data type has been implemented. The following functionality e
 * remove value from list
 
 ### LIST
-*Not yet implemented.*
+The `LIST` data type has been implemented. The following functionality exists:
+
+* creation
+* deletion
+* lookup
+  * front
+  * back
+* clearing (remove everything from list)
+* check if empty
+* iterate and apply function
+  * accepts a function pointer and calls it on each value
+* merging of two lists
+* pop value from back
+* pop value from front
+* push value to back
+* push value to front
+* remove value from list
 
 ### STACK
 *Not yet implemented.*

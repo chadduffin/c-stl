@@ -39,3 +39,4 @@ void         vector_resize    (VECTOR *vector, unsigned int size);
 unsigned int vector_size      (VECTOR *vector);
 
 #endif // VECTOR //
+

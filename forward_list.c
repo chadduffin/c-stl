@@ -49,6 +49,9 @@ void forward_list_clear(FORWARD_LIST *forward_list, void (*f)(DATA*)) {
 
     free(forward_list->tail_);
   }
+
+  forward_list->head_ = NULL;
+  forward_list->tail_ = NULL;
 }
 
 bool forward_list_empty(FORWARD_LIST *forward_list) {
