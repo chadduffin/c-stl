@@ -20,6 +20,13 @@ void stack_delete(STACK **stack) {
   *stack = NULL;
 }
 
+bool stack_empty(STACK *stack) {
+  ERROR_NULL(stack);
+  ERROR_NULL(stack->vector_);
+
+  return vector_empty(stack->vector_);
+}
+
 void stack_push(STACK *stack, DATA data) {
   ERROR_NULL(stack);
   ERROR_NULL(stack->vector_);

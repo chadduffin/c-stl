@@ -72,6 +72,7 @@ The `FORWARD_LIST` data type has been implemented. The following functionality e
 * pop value from front
 * push value to front
 * remove value from list
+* check size
 
 ### LIST
 The `LIST` data type has been implemented. The following functionality exists:
@@ -91,12 +92,31 @@ The `LIST` data type has been implemented. The following functionality exists:
 * push value to back
 * push value to front
 * remove value from list
+* check size
 
 ### STACK
-*Not yet implemented.*
+The `STACK` data type has been implemented. The following functionality exists:
+
+* creation
+* deletion
+* check if empty
+* push value onto stack
+* pop value from stack
+* check size
+* get value on top of stack
 
 ### QUEUE
-*Not yet implemented.*
+The `QUEUE` data type has been implemented. The following functionality exists:
+
+* creation
+* deletion
+* lookup
+  * front
+  * back
+* check if empty
+* pop value from front
+* push value to back
+* check size
 
 ### PRIORITY_QUEUE
 *Not yet implemented.*

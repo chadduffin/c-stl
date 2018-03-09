@@ -13,6 +13,7 @@ typedef struct LIST LIST;
 typedef struct LIST_NODE LIST_NODE;
 
 struct LIST {
+  unsigned int size_;
   LIST_NODE *head_, *tail_;
 };
 
@@ -21,20 +22,21 @@ struct LIST_NODE {
   LIST_NODE *next_, *prev_;
 };
 
-void  list_create     (LIST **list);
-void  list_delete     (LIST **list, void (*f)(DATA*));
+void  list_create      (LIST **list);
+void  list_delete      (LIST **list, void (*f)(DATA*));
 
-DATA* list_back       (LIST *list);
-void  list_clear      (LIST *list, void (*f)(DATA*));
-bool  list_empty      (LIST *list);
-DATA* list_front      (LIST *list);
-void  list_handle     (LIST *list, void (*f)(DATA*));
-void  list_merge      (LIST *list_left, LIST *list_right);
-void  list_pop_back   (LIST *list);
-void  list_pop_front  (LIST *list);
-void  list_push_back  (LIST *list, DATA data);
-void  list_push_front (LIST *list, DATA data);
-void  list_remove     (LIST *list, DATA data);
+DATA* list_back        (LIST *list);
+void  list_clear       (LIST *list, void (*f)(DATA*));
+bool  list_empty       (LIST *list);
+DATA* list_front       (LIST *list);
+void  list_handle      (LIST *list, void (*f)(DATA*));
+void  list_merge       (LIST *list_left, LIST *list_right);
+void  list_pop_back    (LIST *list);
+void  list_pop_front   (LIST *list);
+void  list_push_back   (LIST *list, DATA data);
+void  list_push_front  (LIST *list, DATA data);
+void  list_remove      (LIST *list, DATA data);
+unsigned int list_size (LIST *list);
 
 #endif // LIST //
 

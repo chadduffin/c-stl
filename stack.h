@@ -19,6 +19,7 @@ struct STACK {
 void         stack_create (STACK **stack);
 void         stack_delete (STACK **stack);
 
+bool         stack_empty  (STACK *stack);
 void         stack_push   (STACK *stack, DATA data);
 void         stack_pop    (STACK *stack);
 unsigned int stack_size   (STACK *stack);

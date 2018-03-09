@@ -5,6 +5,7 @@ void list_create(LIST **list) {
 
   *list = (LIST*)(malloc(sizeof(LIST)));
 
+  (*list)->size_ = 0;
   (*list)->head_ = NULL;
   (*list)->tail_ = NULL;
 }
@@ -49,6 +50,7 @@ void list_clear(LIST *list, void (*f)(DATA*)) {
     free(list->tail_);
   }
 
+  list->size_ = 0;
   list->head_ = NULL;
   list->tail_ = NULL;
 }
@@ -82,6 +84,8 @@ void list_merge(LIST *list_left, LIST *list_right) {
   ERROR_NULL(list_left);
   ERROR_NULL(list_right);
 
+  list_left->size_ += list_right->size_;
+
   if (list_left->head_) {
     list_left->tail_->next_ = list_right->head_;
     list_right->head_->prev_ = list_left->tail_;
@@ -103,6 +107,7 @@ void list_pop_back(LIST *list) {
   if ((tmp = list->tail_)) {
     list->tail_ = list->tail_->prev_;
     list->tail_->next_ = NULL;
+    list->size_ -= 1;
 
     free(tmp);
   }
@@ -116,6 +121,7 @@ void list_pop_front(LIST *list) {
   if ((tmp = list->head_)) {
     list->head_ = list->head_->next_;
     list->head_->prev_ = NULL;
+    list->size_ -= 1;
 
     free(tmp);
   }
@@ -136,6 +142,8 @@ void list_push_back(LIST *list, DATA data) {
     list->head_ = tmp;
     list->tail_ = tmp;
   }
+
+  list->size_ += 1;
 }
 
 void list_push_front(LIST *list, DATA data) {
@@ -153,6 +161,8 @@ void list_push_front(LIST *list, DATA data) {
     list->head_ = tmp;
     list->tail_ = tmp;
   }
+
+  list->size_ += 1;
 }
 
 void list_remove(LIST *list, DATA data) {
@@ -170,6 +180,8 @@ void list_remove(LIST *list, DATA data) {
 
       *indirect = (*indirect)->next_;
 
+      list->size_ += 1;
+
       free(tmp);
 
       return;
@@ -177,5 +189,11 @@ void list_remove(LIST *list, DATA data) {
 
     indirect = &((*indirect)->next_);
   }
+}
+
+unsigned int list_size(LIST *list) {
+  ERROR_NULL(list);
+
+  return list->size_;
 }
 
