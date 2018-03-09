@@ -13,8 +13,7 @@ typedef struct FORWARD_LIST FORWARD_LIST;
 typedef struct FORWARD_LIST_NODE FORWARD_LIST_NODE;
 
 struct FORWARD_LIST {
-  unsigned int size_;
-  FORWARD_LIST_NODE *head_, *tail_;
+  FORWARD_LIST_NODE *head_;
 };
 
 struct FORWARD_LIST_NODE {
@@ -26,7 +25,6 @@ void         forward_list_create      (FORWARD_LIST **forward_list);
 void         forward_list_delete      (FORWARD_LIST **forward_list,
                                        void (*f)(DATA*));
 
-DATA*        forward_list_back        (FORWARD_LIST *forward_list);
 void         forward_list_clear       (FORWARD_LIST *forward_list,
                                        void (*f)(DATA*));
 bool         forward_list_empty       (FORWARD_LIST *forward_list);
@@ -38,7 +36,6 @@ void         forward_list_merge       (FORWARD_LIST *forward_list_left,
 void         forward_list_pop_front   (FORWARD_LIST *forward_list);
 void         forward_list_push_front  (FORWARD_LIST *forward_list, DATA data);
 void         forward_list_remove      (FORWARD_LIST *forward_list, DATA data);
-unsigned int forward_list_size        (FORWARD_LIST *forward_list);
 
 #endif // FORWARD_LIST //
 

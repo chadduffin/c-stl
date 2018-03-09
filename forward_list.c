@@ -5,9 +5,7 @@ void forward_list_create(FORWARD_LIST **forward_list) {
   
   *forward_list = (FORWARD_LIST*)(malloc(sizeof(FORWARD_LIST)));
 
-  (*forward_list)->size_ = 0;
   (*forward_list)->head_ = NULL;
-  (*forward_list)->tail_ = NULL;
 }
 
 void forward_list_delete(FORWARD_LIST **forward_list,
@@ -15,45 +13,37 @@ void forward_list_delete(FORWARD_LIST **forward_list,
   ERROR_NULL(forward_list);
   ERROR_NULL(*forward_list);
 
-  FORWARD_LIST *tmp = *forward_list;
+  FORWARD_LIST_NODE *tmp = NULL;
 
-  while ((tmp->tail_ = tmp->head_)) {
-    tmp->head_ = tmp->head_->next_;
+  while ((tmp = (*forward_list)->head_)) {
+    (*forward_list)->head_ = tmp->next_;
 
     if (f) {
-      f(&(tmp->tail_->data_));
+      f(&(tmp->data_));
     }
 
-    free(tmp->tail_);
+    free(tmp);
   }
 
-  free(tmp);
+  free(*forward_list);
 
   *forward_list = NULL;
-}
-
-DATA* forward_list_back(FORWARD_LIST *forward_list) {
-  ERROR_NULL(forward_list);
-
-  return (forward_list->tail_) ? &(forward_list->tail_->data_) : NULL;
 }
 
 void forward_list_clear(FORWARD_LIST *forward_list, void (*f)(DATA*)) {
   ERROR_NULL(forward_list);
 
-  while ((forward_list->tail_ = forward_list->head_)) {
-    forward_list->head_ = forward_list->head_->next_;
+  FORWARD_LIST_NODE *tmp = NULL;
+
+  while ((tmp = forward_list->head_)) {
+    forward_list->head_ = tmp->next_;
 
     if (f) {
-      f(&(forward_list->tail_->data_));
+      f(&(tmp->data_));
     }
 
-    free(forward_list->tail_);
+    free(tmp);
   }
-
-  forward_list->size_ = 0;
-  forward_list->head_ = NULL;
-  forward_list->tail_ = NULL;
 }
 
 bool forward_list_empty(FORWARD_LIST *forward_list) {
@@ -86,18 +76,19 @@ void forward_list_merge(FORWARD_LIST *forward_list_left,
   ERROR_NULL(forward_list_left);
   ERROR_NULL(forward_list_right);
 
-  forward_list_left->size_ += forward_list_right->size_;
+  FORWARD_LIST_NODE *tmp = forward_list_left->head_;
 
-  if (forward_list_left->head_) {
-    forward_list_left->tail_->next_ = forward_list_right->head_;
-    forward_list_left->tail_ = forward_list_right->tail_;
-  } else {
+  if (!tmp) {
     forward_list_left->head_ = forward_list_right->head_;
-    forward_list_left->tail_ = forward_list_right->tail_;
+  } else {
+    while (tmp->next_) {
+      tmp = tmp->next_;
+    }
+
+    tmp->next_ = forward_list_right->head_;
   }
 
   forward_list_right->head_ = NULL;
-  forward_list_right->tail_ = NULL;
 }
 
 void forward_list_pop_front(FORWARD_LIST *forward_list) {
@@ -107,8 +98,6 @@ void forward_list_pop_front(FORWARD_LIST *forward_list) {
   
   if (tmp) {
     forward_list->head_ = tmp->next_;
-    forward_list->size_ -= 1;
-
     free(tmp);
   }
 }
@@ -122,12 +111,6 @@ void forward_list_push_front(FORWARD_LIST *forward_list, DATA data) {
   tmp->data_ = data;
   tmp->next_ = forward_list->head_;
   forward_list->head_ = tmp;
-
-  if (!forward_list->tail_) {
-    forward_list->tail_ = tmp;
-  }
-
-  forward_list->size_ += 1;
 }
 
 void forward_list_remove(FORWARD_LIST *forward_list, DATA data) {
@@ -139,8 +122,6 @@ void forward_list_remove(FORWARD_LIST *forward_list, DATA data) {
     if (!memcmp(&(tmp->data_), &data, sizeof(DATA))) {
       *indirect = (*indirect)->next_;
 
-      forward_list->size_ -= 1;
-
       free(tmp);
 
       return;
@@ -149,10 +130,3 @@ void forward_list_remove(FORWARD_LIST *forward_list, DATA data) {
     indirect = &((*indirect)->next_);
   }
 }
-
-unsigned int forward_list_size(FORWARD_LIST *forward_list) {
-  ERROR_NULL(forward_list);
-
-  return forward_list->size_;
-}
-
