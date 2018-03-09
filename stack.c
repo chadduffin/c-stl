@@ -9,9 +9,9 @@ void stack_create(STACK **stack) {
 }
 
 void stack_delete(STACK **stack) {
-  ERROR_STACK(stack);
-  ERROR_STACK(*stack);
-  ERROR_STACK((*stack)->vector_);
+  ERROR_NULL(stack);
+  ERROR_NULL(*stack);
+  ERROR_NULL((*stack)->vector_);
 
   vector_delete(&((*stack)->vector_), NULL);
 

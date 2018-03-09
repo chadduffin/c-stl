@@ -27,7 +27,7 @@ DATA* vector_at(VECTOR *vector, unsigned int index) {
   ERROR_NULL(vector->array_);
   ERROR_RANGE(index, 0, vector->size_ - 1);
 
-  return &(vector->array_->data_[index]);
+  return array_at(vector->array_, index);
 }
 
 DATA* vector_back(VECTOR *vector) {
@@ -35,14 +35,14 @@ DATA* vector_back(VECTOR *vector) {
   ERROR_NULL(vector->array_);
   ERROR_ZERO(vector->size_);
 
-  return &(vector->array_->data_[vector->size_ - 1]);
+  return array_at(vector->array_, vector->size_ - 1);
 }
 
 unsigned int vector_capacity(VECTOR *vector) {
   ERROR_NULL(vector);
   ERROR_NULL(vector->array_);
   
-  return vector->array_->size_;
+  return array_size(vector->array_);
 }
 
 void vector_clear(VECTOR *vector) {
@@ -68,7 +68,7 @@ void vector_erase(VECTOR *vector, unsigned int index) {
   ERROR_RANGE(index, 0, vector->size_ - 1);
 
   for (unsigned int i = index; i < vector->size_ - 1; i++) {
-    vector->array_->data_[i] = vector->array_->data_[i + 1];
+    *(array_at(vector->array_, i)) = *(array_at(vector->array_, i + 1));
   }
 
   vector->size_ -= 1;
@@ -78,7 +78,7 @@ DATA* vector_front(VECTOR *vector) {
   ERROR_NULL(vector);
   ERROR_NULL(vector->array_);
 
-  return &(vector->array_->data_[0]);
+  return array_at(vector->array_, 0);
 }
 
 void vector_handle(VECTOR *vector, void (*f)(DATA*)) {
@@ -86,9 +86,7 @@ void vector_handle(VECTOR *vector, void (*f)(DATA*)) {
   ERROR_NULL(vector->array_);
   ERROR_NULL(f);
 
-  for (unsigned int i = 0; i < vector->size_; i++) {
-    f(&(vector->array_->data_[i]));
-  }
+  array_handle(vector->array_, f);
 }
 
 void vector_insert(VECTOR *vector, DATA data, unsigned int index) {
@@ -135,13 +133,13 @@ void vector_push_back(VECTOR *vector, DATA data) {
   ERROR_NULL(vector);
   ERROR_NULL(vector->array_);
 
-  if (vector->size_ >= vector->array_->size_) {
+  if (vector->size_ >= array_size(vector->array_)) {
     ARRAY *tmp = NULL;
 
-    array_create(&tmp, vector->array_->size_ * VECTOR_RESIZE_RELATION);
+    array_create(&tmp, array_size(vector->array_) * VECTOR_RESIZE_RELATION);
 
     for (unsigned int i = 0; i < vector->size_; i++) {
-      tmp->data_[i] = vector->array_->data_[i];
+      *(array_at(tmp, i)) = *(array_at(vector->array_, i));
     }
 
     array_delete(&(vector->array_), NULL);
@@ -149,7 +147,7 @@ void vector_push_back(VECTOR *vector, DATA data) {
     vector->array_ = tmp;
   }
 
-  vector->array_->data_[vector->size_] = data;
+  *(array_at(vector->array_, vector->size_)) = data;
   vector->size_ += 1;
 }
 
@@ -164,7 +162,7 @@ void vector_resize(VECTOR *vector, unsigned int size) {
     array_create(&tmp, size);
 
     for (unsigned int i = 0; i < vector->size_; i++) {
-      tmp->data_[i] = vector->array_->data_[i];
+      *(array_at(tmp, i)) = *(array_at(vector->array_, i));
     }
 
     array_delete(&(vector->array_), NULL);
