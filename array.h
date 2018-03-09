@@ -18,11 +18,7 @@ struct ARRAY {
 
 void         array_create          (ARRAY **array, unsigned int size);
 void         array_delete          (ARRAY **array, void (*f)(DATA*));
-
 void         array_iterator_create (ITERATOR **iterator, ARRAY *array);
-void         array_iterator_next   (ITERATOR *iterator);
-void         array_iterator_prev   (ITERATOR *iterator);
-DATA*        array_iterator_data   (ITERATOR *iterator);
 
 DATA*        array_at              (ARRAY *array, unsigned int index);
 DATA*        array_back            (ARRAY *array);
@@ -32,6 +28,10 @@ void         array_fill            (ARRAY *array, DATA data);
 DATA*        array_front           (ARRAY *array);
 void         array_handle          (ARRAY *array, void (*f)(DATA*));
 unsigned int array_size            (ARRAY *array);
+
+DATA*        array_iterator_data   (ITERATOR *iterator);
+void         array_iterator_next   (ITERATOR *iterator);
+void         array_iterator_prev   (ITERATOR *iterator);
 
 #endif // ARRAY //
 

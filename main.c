@@ -5,6 +5,7 @@
 #include "forward_list.h"
 
 int main(int argc, char **argv) {
+/*
   ARRAY *array = NULL;
   ITERATOR *iterator = NULL;
 
@@ -25,7 +26,7 @@ int main(int argc, char **argv) {
 
   iterator_delete(&iterator);
   array_delete(&array, NULL);
-
+*/
   return 0;
 }
 

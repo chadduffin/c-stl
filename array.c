@@ -2,7 +2,7 @@
 
 void array_create(ARRAY **array, unsigned int size) {
   ERROR_NULL(array);
-  ERROR_RANGE(size, 0, UINT_MAX);
+  ERROR_RANGE(size, 0, UINT_MAX - 1);
 
   *array = (ARRAY*)(malloc(sizeof(ARRAY)));
 
@@ -35,56 +35,16 @@ void array_iterator_create(ITERATOR **iterator, ARRAY *array) {
   *iterator = (ITERATOR*)(malloc(sizeof(ITERATOR)));
 
   (*iterator)->container_ = array;
-  (*iterator)->next_ = (void(*)(ITERATOR*))array_iterator_next;
-  (*iterator)->prev_ = (void(*)(ITERATOR*))array_iterator_prev;
-  (*iterator)->data_ = (DATA*(*)(ITERATOR*))array_iterator_data;
+  (*iterator)->next_ = (void(*)(ITERATOR*))(array_iterator_next);
+  (*iterator)->prev_ = (void(*)(ITERATOR*))(array_iterator_prev);
+  (*iterator)->data_ = (DATA*(*)(ITERATOR*))(array_iterator_data);
   (*iterator)->uint_ = 0;
-}
-
-void array_iterator_next(ITERATOR *iterator) {
-  ERROR_NULL(iterator);
-  ERROR_NULL(iterator->container_);
-  ERROR_NULL(iterator->next_);
-  ERROR_NULL(iterator->prev_);
-  ERROR_NULL(iterator->data_);
-
-  ARRAY *tmp = (ARRAY*)(iterator->container_);
-  
-  if (iterator->uint_ < tmp->size_) {
-    iterator->uint_ += 1;
-  }
-}
-
-void array_iterator_prev(ITERATOR *iterator) {
-  ERROR_NULL(iterator);
-  ERROR_NULL(iterator->container_);
-  ERROR_NULL(iterator->next_);
-  ERROR_NULL(iterator->prev_);
-  ERROR_NULL(iterator->data_);
-  
-  if (iterator->uint_ > 0) {
-    iterator->uint_ -= 1;
-  }
-}
-
-DATA* array_iterator_data(ITERATOR *iterator) {
-  ERROR_NULL(iterator);
-  ERROR_NULL(iterator->container_);
-  ERROR_NULL(iterator->next_);
-  ERROR_NULL(iterator->prev_);
-  ERROR_NULL(iterator->data_);
-
-  ARRAY *tmp = (ARRAY*)(iterator->container_);
-
-  ERROR_RANGE(iterator->uint_, 0, tmp->size_);
-
-  return &(tmp->data_[iterator->uint_]);
 }
 
 DATA* array_at(ARRAY *array, unsigned int index) {
   ERROR_NULL(array);
   ERROR_NULL(array->data_);
-  ERROR_RANGE(index, 0, array->size_);
+  ERROR_RANGE(index, 0, array->size_ - 1);
 
   return &(array->data_[index]);
 }
@@ -138,5 +98,45 @@ unsigned int array_size(ARRAY *array) {
   ERROR_NULL(array);
 
   return array->size_;
+}
+
+DATA* array_iterator_data(ITERATOR *iterator) {
+  ERROR_NULL(iterator);
+  ERROR_NULL(iterator->container_);
+  ERROR_NULL(iterator->next_);
+  ERROR_NULL(iterator->prev_);
+  ERROR_NULL(iterator->data_);
+
+  ARRAY *tmp = (ARRAY*)(iterator->container_);
+
+  ERROR_RANGE(iterator->uint_, 0, tmp->size_ - 1);
+
+  return &(tmp->data_[iterator->uint_]);
+}
+
+void array_iterator_next(ITERATOR *iterator) {
+  ERROR_NULL(iterator);
+  ERROR_NULL(iterator->container_);
+  ERROR_NULL(iterator->next_);
+  ERROR_NULL(iterator->prev_);
+  ERROR_NULL(iterator->data_);
+
+  ARRAY *tmp = (ARRAY*)(iterator->container_);
+  
+  if (iterator->uint_ < tmp->size_) {
+    iterator->uint_ += 1;
+  }
+}
+
+void array_iterator_prev(ITERATOR *iterator) {
+  ERROR_NULL(iterator);
+  ERROR_NULL(iterator->container_);
+  ERROR_NULL(iterator->next_);
+  ERROR_NULL(iterator->prev_);
+  ERROR_NULL(iterator->data_);
+  
+  if (iterator->uint_ > 0) {
+    iterator->uint_ -= 1;
+  }
 }
 

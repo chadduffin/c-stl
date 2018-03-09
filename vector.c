@@ -15,11 +15,9 @@ void vector_delete(VECTOR **vector, void (*f)(DATA*)) {
   ERROR_NULL(*vector);
   ERROR_NULL((*vector)->array_);
 
-  VECTOR *tmp = *vector;
+  array_delete(&((*vector)->array_), f);
 
-  array_delete(&(tmp->array_), f);
-
-  free(tmp);
+  free(*vector);
 
   *vector = NULL;
 }
@@ -27,7 +25,7 @@ void vector_delete(VECTOR **vector, void (*f)(DATA*)) {
 DATA* vector_at(VECTOR *vector, unsigned int index) {
   ERROR_NULL(vector);
   ERROR_NULL(vector->array_);
-  ERROR_RANGE(index, 0, vector->size_);
+  ERROR_RANGE(index, 0, vector->size_ - 1);
 
   return &(vector->array_->data_[index]);
 }
@@ -35,8 +33,9 @@ DATA* vector_at(VECTOR *vector, unsigned int index) {
 DATA* vector_back(VECTOR *vector) {
   ERROR_NULL(vector);
   ERROR_NULL(vector->array_);
+  ERROR_ZERO(vector->size_);
 
-  return &(vector->array_->data_[vector->size_-1]);
+  return &(vector->array_->data_[vector->size_ - 1]);
 }
 
 unsigned int vector_capacity(VECTOR *vector) {
@@ -66,10 +65,10 @@ bool vector_empty(VECTOR *vector) {
 void vector_erase(VECTOR *vector, unsigned int index) {
   ERROR_NULL(vector);
   ERROR_NULL(vector->array_);
-  ERROR_RANGE(index, 0, vector->size_);
+  ERROR_RANGE(index, 0, vector->size_ - 1);
 
-  for (unsigned int i = index; i < vector->size_-1; i++) {
-    vector->array_->data_[i] = vector->array_->data_[i+1];
+  for (unsigned int i = index; i < vector->size_ - 1; i++) {
+    vector->array_->data_[i] = vector->array_->data_[i + 1];
   }
 
   vector->size_ -= 1;
@@ -95,11 +94,11 @@ void vector_handle(VECTOR *vector, void (*f)(DATA*)) {
 void vector_insert(VECTOR *vector, DATA data, unsigned int index) {
   ERROR_NULL(vector);
   ERROR_NULL(vector->array_);
-  ERROR_RANGE(index, 0, vector->size_);
+  ERROR_RANGE(index, 0, vector->size_ - 1);
 
   ARRAY *tmp = NULL;
 
-  if (vector->size_+1 >= vector->array_->size_) {
+  if (vector->size_ >= vector->array_->size_) {
     array_create(&tmp, vector->array_->size_ * VECTOR_RESIZE_RELATION);
   } else {
     tmp = vector->array_;
@@ -157,7 +156,7 @@ void vector_push_back(VECTOR *vector, DATA data) {
 void vector_resize(VECTOR *vector, unsigned int size) {
   ERROR_NULL(vector);
   ERROR_NULL(vector->array_);
-  ERROR_RANGE(size, 0, UINT_MAX);
+  ERROR_RANGE(size, 0, UINT_MAX - 1);
 
   if (size > vector->array_->size_) {
     ARRAY *tmp = NULL;
