@@ -1,5 +1,6 @@
 #include "list.h"
 #include "array.h"
+#include "stack.h"
 #include "deque.h"
 #include "vector.h"
 #include "forward_list.h"
