@@ -88,7 +88,52 @@ bool deque_empty(DEQUE *deque) {
 }
 
 void deque_erase(DEQUE *deque, unsigned int index) {
+  ERROR_NULL(deque);
+  ERROR_NULL(deque->segments_);
+  ERROR_RANGE(index, 0, deque->size_ - 1);
 
+  int inc = 1;
+  unsigned int begin = index + deque->head_, end = 0, segment_index = 0;
+  DATA *tmp = NULL;
+
+  if (index >= (deque->size_ / 2)) {
+    end = deque->tail_;
+    inc = 1;
+  } else {
+    end = deque->head_;
+    inc = -1;
+  }
+
+  index = begin % DEQUE_SEGMENT_SIZE;
+  segment_index = begin / DEQUE_SEGMENT_SIZE;
+
+  for (unsigned int i = begin;; i += inc) {
+    if (tmp) {
+      *tmp = deque->segments_[segment_index]->data_[index];
+    }
+
+    tmp = &(deque->segments_[segment_index]->data_[index]);
+
+    if (((inc == 1) && (i >= end)) || ((inc == -1) && (i <= end))) {
+      break;
+    }
+
+    if ((inc == -1) && (index == 0)) {
+      index = DEQUE_SEGMENT_SIZE - 1;
+      segment_index -= 1;
+    } else if ((inc == 1) && (index == DEQUE_SEGMENT_SIZE - 1)) {
+      index = 0;
+      segment_index += 1;
+    } else {
+      index += inc;
+    }
+  }
+
+  if (inc == -1) {
+    deque_pop_front(deque);
+  } else {
+    deque_pop_back(deque);
+  }
 }
 
 DATA* deque_front(DEQUE *deque) {
@@ -100,11 +145,77 @@ DATA* deque_front(DEQUE *deque) {
 }
 
 void deque_handle(DEQUE *deque, void (*f)(DATA*)) {
+  ERROR_NULL(deque);
+  ERROR_NULL(deque->segments_);
+  ERROR_NULL(f);
 
+  unsigned int index = deque->head_ % DEQUE_SEGMENT_SIZE,
+               segment_index = deque->head_ / DEQUE_SEGMENT_SIZE;
+
+  for (unsigned int i = deque->head_; i <= deque->tail_; i++) {
+    f(&(deque->segments_[segment_index]->data_[index]));
+
+    if ((i + 1) % DEQUE_SEGMENT_SIZE) {
+      index += 1;
+    } else {
+      segment_index += 1;
+      index = 0;
+    }
+  }
 }
 
 void deque_insert(DEQUE *deque, DATA data, unsigned int index) {
+  ERROR_NULL(deque);
+  ERROR_NULL(deque->segments_);
+  ERROR_RANGE(index, 0, deque->size_);
 
+  int inc = 1;
+  unsigned int begin = 0, end = 0, segment_index = 0;
+  DATA *tmp = NULL;
+
+  if (!deque->size_) {
+    deque_push_back(deque, data);
+    return;
+  } else if (index >= (deque->size_ / 2)) {
+    deque_push_back(deque, data);
+
+    begin = deque->tail_;
+    end = index + deque->head_;
+    inc = -1;
+  } else {
+    deque_push_front(deque, data);
+
+    begin = deque->head_;
+    end = index + deque->head_;
+    inc = 1;
+  }
+
+  index = begin % DEQUE_SEGMENT_SIZE;
+  segment_index = begin / DEQUE_SEGMENT_SIZE;
+
+  for (unsigned int i = begin;; i += inc) {
+    if (tmp) {
+      *tmp = deque->segments_[segment_index]->data_[index];
+    }
+
+    tmp = &(deque->segments_[segment_index]->data_[index]);
+
+    if (((inc == 1) && (i >= end)) || ((inc == -1) && (i <= end))) {
+      break;
+    }
+
+    if ((inc == -1) && (index == 0)) {
+      index = DEQUE_SEGMENT_SIZE - 1;
+      segment_index -= 1;
+    } else if ((inc == 1) && (index == DEQUE_SEGMENT_SIZE - 1)) {
+      index = 0;
+      segment_index += 1;
+    } else {
+      index += inc;
+    }
+  }
+
+  *tmp = data;
 }
 
 void deque_pop_back(DEQUE *deque) {
@@ -235,7 +346,19 @@ void deque_push_front(DEQUE *deque, DATA data) {
 }
 
 void deque_resize(DEQUE *deque, unsigned int size) {
+  ERROR_NULL(deque);
+  ERROR_NULL(deque->segments_);
+  ERROR_RANGE(size, 0, UINT_MAX);
 
+  DATA data;
+
+  while (size < deque->size_) {
+    deque_pop_back(deque);
+  }
+
+  while (size > deque->size_) {
+    deque_push_back(deque, data);
+  }
 }
 
 unsigned int deque_size(DEQUE *deque) {

@@ -92,7 +92,7 @@ void vector_handle(VECTOR *vector, void (*f)(DATA*)) {
 void vector_insert(VECTOR *vector, DATA data, unsigned int index) {
   ERROR_NULL(vector);
   ERROR_NULL(vector->array_);
-  ERROR_RANGE(index, 0, vector->size_ - 1);
+  ERROR_RANGE(index, 0, vector->size_);
 
   ARRAY *tmp = NULL;
 

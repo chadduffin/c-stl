@@ -6,6 +6,28 @@
 #include "forward_list.h"
 
 int main(int argc, char **argv) {
+
+  DATA data;
+  DEQUE *deque = NULL;
+
+  deque_create(&deque);
+    
+  for (unsigned int i = 0; i < 10000; i++) {
+    data.my_int = i;
+    unsigned int j = (deque->size_ > 0) ? ((i * 0x4f1) >> (i % 100)) % deque->size_ : 0;
+    deque_insert(deque, data, j);
+  }
+
+  deque_erase(deque, 9999);
+  deque_erase(deque, 1000);
+  deque_erase(deque, 100);
+  deque_erase(deque, 10);
+
+  for (unsigned int i = 0; i < deque_size(deque); i++) {
+    printf("%i\n", deque_at(deque, i)->my_int);
+  }
+
+  deque_delete(&deque, NULL);
 /*
   ARRAY *array = NULL;
   ITERATOR *iterator = NULL;
