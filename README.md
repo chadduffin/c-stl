@@ -54,7 +54,27 @@ The `VECTOR` data type has been implemented. The following functionality exists:
 * check size
 
 ### DEQUE
-*Not yet implemented.*
+The `DEQUE` data type has been implemented. The following functionality exists:
+
+* creation
+* deletion
+* lookup
+  * arbitrary
+  * front
+  * back
+* check capacity
+* clearing (remove everything from deque)
+* check if empty
+* erasing (specified index)
+* iterate and apply function
+  * accepts a function pointer and calls it on each value
+* insert a value (specified index)
+* pop value from end
+* pop value from front
+* push value to end
+* push value to front
+* resizing
+* check size
 
 ### FORWARD_LIST
 The `FORWARD_LIST` data type has been implemented. The following functionality exists:
