@@ -33,8 +33,9 @@ void list_delete(LIST **list, void (*f)(DATA*)) {
 
 DATA* list_back(LIST *list) {
   ERROR_NULL(list);
+  ERROR_NULL(list->tail_);
 
-  return (list->tail_) ? &(list->tail_->data_) : NULL;
+  return &(list->tail_->data_);
 }
 
 void list_clear(LIST *list, void (*f)(DATA*)) {
@@ -63,8 +64,9 @@ bool list_empty(LIST *list) {
 
 DATA* list_front(LIST *list) {
   ERROR_NULL(list);
+  ERROR_NULL(list->head_);
 
-  return (list->head_) ? &(list->head_->data_) : NULL;
+  return &(list->head_->data_);
 }
 
 void list_handle(LIST *list, void (*f)(DATA*)) {
@@ -101,30 +103,28 @@ void list_merge(LIST *list_left, LIST *list_right) {
 
 void list_pop_back(LIST *list) {
   ERROR_NULL(list);
+  ERROR_NULL(list->tail_);
 
-  LIST_NODE *tmp = NULL;
+  LIST_NODE *tmp = list->tail_;
 
-  if ((tmp = list->tail_)) {
-    list->tail_ = list->tail_->prev_;
-    list->tail_->next_ = NULL;
-    list->size_ -= 1;
+  list->tail_ = list->tail_->prev_;
+  list->tail_->next_ = NULL;
+  list->size_ -= 1;
 
-    free(tmp);
-  }
+  free(tmp);
 }
 
 void list_pop_front(LIST *list) {
   ERROR_NULL(list);
+  ERROR_NULL(list->head_);
 
-  LIST_NODE *tmp = NULL;
+  LIST_NODE *tmp = list->head_;
 
-  if ((tmp = list->head_)) {
-    list->head_ = list->head_->next_;
-    list->head_->prev_ = NULL;
-    list->size_ -= 1;
+  list->head_ = list->head_->next_;
+  list->head_->prev_ = NULL;
+  list->size_ -= 1;
 
-    free(tmp);
-  }
+  free(tmp);
 }
 
 void list_push_back(LIST *list, DATA data) {

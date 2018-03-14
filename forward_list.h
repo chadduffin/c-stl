@@ -38,7 +38,7 @@ typedef struct FORWARD_LIST_NODE FORWARD_LIST_NODE;
 
 // @name    struct FORWARD_LIST, FORWARD_LIST
 // @purpose Provide a container with the ability to add and remove items to and
-//          from the end of the in constant time.
+//          from the end of the list in constant time.
 // @notes   The FORWARD_LIST container is implemented as a singly-linked list.
 // @example
 //
@@ -65,63 +65,63 @@ struct FORWARD_LIST_NODE {
 // @notes   It is the client's responsibility to ensure the list is deleted
 //          when it is done with it.
 
-void         forward_list_create      (FORWARD_LIST **forward_list);
+void forward_list_create(FORWARD_LIST **forward_list);
 
 // @name    forward_list_delete
 // @purpose Free memory associated with a FORWARD_LIST pointer safely.
 // @notes   A function can be passed as the second parameter that will be called
 //          on each item in the array before the array is freed.
 
-void         forward_list_delete      (FORWARD_LIST **forward_list,
-                                       void (*f)(DATA*));
+void forward_list_delete(FORWARD_LIST **forward_list,
+                         void (*f)(DATA*));
 
 // @name    forward_list_clear
 // @purpose Remove all of the items from the list.
 
-void         forward_list_clear       (FORWARD_LIST *forward_list,
-                                       void (*f)(DATA*));
+void forward_list_clear(FORWARD_LIST *forward_list,
+                        void (*f)(DATA*));
 
 // @name    forward_list_empty
 // @purpose Return a boolean identifying if the list is empty.
 
-bool         forward_list_empty       (FORWARD_LIST *forward_list);
+bool forward_list_empty(FORWARD_LIST *forward_list);
 
 // @name    forward_list_front
 // @purpose Return a pointer to the data at the front of the list.
 // @notes   If the list is empty this will cause an error.
 
-DATA*        forward_list_front       (FORWARD_LIST *forward_list);
+DATA* forward_list_front(FORWARD_LIST *forward_list);
 
 // @name    forward_list_handle
 // @purpose Call a specified function on each item in the list.
 
-void         forward_list_handle      (FORWARD_LIST *forward_list,
-                                       void (*f)(DATA*));
+void forward_list_handle(FORWARD_LIST *forward_list,
+                         void (*f)(DATA*));
 
 // @name    forward_list_merge
 // @purpose Combine two lists into a single list.
 // @notes   The left list will have the result of the combination. The right
-//          list will be a valid and empty list.
+//          list will be a valid but empty list.
 
-void         forward_list_merge       (FORWARD_LIST *forward_list_left,
-                                      FORWARD_LIST *forward_list_right);
+void forward_list_merge(FORWARD_LIST *forward_list_left,
+                        FORWARD_LIST *forward_list_right);
 
 // @name    forward_list_pop_front
 // @purpose Remove the first item fron the list.
 // @notes   If the list is empty this will cause an error.
 
-void         forward_list_pop_front   (FORWARD_LIST *forward_list);
+void forward_list_pop_front(FORWARD_LIST *forward_list);
 
 // @name    forward_list_push_front
 // @purpose Add an item to the front of the list.
 
-void         forward_list_push_front  (FORWARD_LIST *forward_list, DATA data);
+void forward_list_push_front(FORWARD_LIST *forward_list, DATA data);
 
 // @name    forward_list_remove
-// @purpose Remove an item from the vector identified by its data.
+// @purpose Remove an item from the list identified by its data.
 // @notes   Only removes the first matching item.
 
-void         forward_list_remove      (FORWARD_LIST *forward_list, DATA data);
+void forward_list_remove(FORWARD_LIST *forward_list, DATA data);
 
 #endif // FORWARD_LIST //
 

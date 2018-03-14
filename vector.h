@@ -118,13 +118,15 @@ void vector_erase(VECTOR *vector, unsigned int index);
 
 DATA* vector_front(VECTOR *vector);
 
-// @name    array_handle
+// @name    vector_handle
 // @purpose Call a specified function on each item in the array.
 
 void vector_handle(VECTOR *vector, void (*f)(DATA*));
 
-// @name    array_size
-// @purpose Return the number of elements in the vector.
+// @name    vector_insert
+// @purpose Insert an item into a specific index of the vector.
+// @notes   This function will cause an error if the index is not between 0 and
+//          the size of the vector inclusive,
 
 void vector_insert(VECTOR *vector, DATA data, unsigned int index);
 
@@ -148,7 +150,7 @@ void vector_push_back(VECTOR *vector, DATA data);
 void vector_resize(VECTOR *vector, unsigned int size);
 
 // @name    vector_size
-// @purpose Return the size of the array.
+// @purpose Return the size of the vector.
 
 unsigned int vector_size(VECTOR *vector);
 
