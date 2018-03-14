@@ -37,6 +37,7 @@ void stack_push(STACK *stack, DATA data) {
 void stack_pop(STACK *stack) {
   ERROR_NULL(stack);
   ERROR_NULL(stack->vector_);
+  ERROR_ZERO(stack->vector_->size_);
 
   vector_pop_back(stack->vector_);
 }
@@ -51,6 +52,7 @@ unsigned int stack_size(STACK *stack) {
 DATA* stack_top(STACK *stack) {
   ERROR_NULL(stack);
   ERROR_NULL(stack->vector_);
+  ERROR_ZERO(stack->vector_->size_);
 
   return vector_back(stack->vector_);
 }

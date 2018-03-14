@@ -9,6 +9,10 @@ void iterator_delete(ITERATOR **iterator) {
   *iterator = NULL;
 }
 
+bool iterator_compare(ITERATOR *left, ITERATOR *right) {
+  // compare iterators
+}
+
 DATA* iterator_data(ITERATOR *iterator) {
   ERROR_NULL(iterator);
   ERROR_NULL(iterator->container_);

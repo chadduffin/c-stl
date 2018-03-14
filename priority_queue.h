@@ -19,11 +19,11 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// This file contains the various generic data structures that are needed
-// by all of the containers.
+// This file contains the data structures and function signatures for the
+// PRIORITY_QUEUE container.
 
-#ifndef __GENERICS__
-#define __GENERICS__
+#ifndef __PRIORITY_QUEUE__
+#define __PRIORITY_QUEUE__
 
 #include <limits.h>
 #include <string.h>
@@ -31,42 +31,23 @@
 #include <stdbool.h>
 
 #include "error.h"
+#include "vector.h"
+#include "generics.h"
 
-typedef union DATA DATA;
-typedef struct ITERATOR ITERATOR;
+typedef struct PRIORITY_QUEUE PRIORITY_QUEUE;
 
-// @name    union DATA, DATA
-// @purpose Provide a basic unit of storage for the containers
-//          that can be expanded to include other data types.
-// @example
-//
-//          union DATA {
-//            int my_num;
-//            void *my_void;
-//          };
-
-union DATA {
-  int my_int;
+struct PRIORITY_QUEUE {
+  bool (*cmp)(DATA*, DATA*);
+  VECTOR *vector_;
 };
 
-struct ITERATOR {
-  bool begin_, end_;
-  void *container_;
-  void (*next_)(ITERATOR*), (*prev_)(ITERATOR*);
-  DATA* (*data_)(ITERATOR*);
+void priority_queue_create(PRIORITY_QUEUE **priority_queue, bool (*cmp)(DATA*, DATA*));
+void priority_queue_delete(PRIORITY_QUEUE **priority_queue);
 
-  union {
-    void *void_;
-    unsigned int uint_;
-  };
-};
+bool priority_queue_empty(PRIORITY_QUEUE *priority_queue);
+void priority_queue_pop(PRIORITY_QUEUE *priority_queue);
+void priority_queue_push(PRIORITY_QUEUE *priority_queue);
+unsigned int priority_queue_size(PRIORITY_QUEUE *priority_queue);
+DATA* priority_queue_top(PRIORITY_QUEUE *priority_queue);
 
-void  iterator_delete  (ITERATOR **iterator);
-
-bool  iterator_compare (ITERATOR *left, ITERATOR *right);
-DATA* iterator_data    (ITERATOR *iterator);
-void  iterator_next    (ITERATOR *iterator);
-void  iterator_prev    (ITERATOR *iterator);
-
-#endif // GENERICS //
-
+#endif // PRIORITY_QUEUE //
