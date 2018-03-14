@@ -23,6 +23,8 @@ int main(int argc, char **argv) {
   deque_erase(deque, 100);
   deque_erase(deque, 10);
 
+  deque_resize(deque, 5);
+
   for (unsigned int i = 0; i < deque_size(deque); i++) {
     printf("%i\n", deque_at(deque, i)->my_int);
   }

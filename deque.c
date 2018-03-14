@@ -350,14 +350,41 @@ void deque_resize(DEQUE *deque, unsigned int size) {
   ERROR_NULL(deque->segments_);
   ERROR_RANGE(size, 0, UINT_MAX);
 
-  DATA data;
-
-  while (size < deque->size_) {
-    deque_pop_back(deque);
+  if (!size) {
+    deque_clear(deque);
+    return;
   }
 
-  while (size > deque->size_) {
-    deque_push_back(deque, data);
+  unsigned int length = ((deque->head_ + size) / DEQUE_SEGMENT_SIZE) + 1;
+
+  if (length != deque->length_) {
+    unsigned int max = (deque->length_ > length) ? deque->length_ : length;
+    ARRAY **segments = (ARRAY**)(malloc(sizeof(ARRAY*) * length));
+
+    for (unsigned int i = 0; i < max; i++) {
+      if (i < deque->length_) {
+        if (i < length) {
+          segments[i] = deque->segments_[i];
+        } else {
+          array_delete(&(deque->segments_[i]), NULL);
+        }
+      } else {
+        array_create(&(segments[i]), DEQUE_SEGMENT_SIZE);
+      }
+    }
+
+    free(deque->segments_);
+
+    deque->segments_ = segments;
+    deque->length_ = length;
+    deque->size_ = size;
+  }
+
+  if (deque->head_ == UINT_MAX) {
+    deque->head_ = DEQUE_SEGMENT_SIZE - (size / 2);
+    deque->tail_ = deque->head_ + size;
+  } else {
+    deque->tail_ = deque->head_ + size;
   }
 }
 
