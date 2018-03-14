@@ -54,8 +54,9 @@ bool forward_list_empty(FORWARD_LIST *forward_list) {
 
 DATA* forward_list_front(FORWARD_LIST *forward_list) {
   ERROR_NULL(forward_list);
+  ERROR_NULL(forward_list->head_);
   
-  return (forward_list->head_) ? &(forward_list->head_->data_) : NULL;
+  return &(forward_list->head_->data_);
 }
 
 void forward_list_handle(FORWARD_LIST *forward_list, void (*f)(DATA*)) {
@@ -93,6 +94,7 @@ void forward_list_merge(FORWARD_LIST *forward_list_left,
 
 void forward_list_pop_front(FORWARD_LIST *forward_list) {
   ERROR_NULL(forward_list);
+  ERROR_NULL(forward_list->head_);
 
   FORWARD_LIST_NODE *tmp = forward_list->head_;
   

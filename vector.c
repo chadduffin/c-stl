@@ -7,7 +7,7 @@ void vector_create(VECTOR **vector) {
   
   (*vector)->size_ = 0;
   
-  array_create(&((*vector)->array_), VECTOR_INIT_SIZE);
+  array_create(&((*vector)->array_), VECTOR_INIT_CAPACITY);
 }
 
 void vector_delete(VECTOR **vector, void (*f)(DATA*)) {
@@ -50,7 +50,7 @@ void vector_clear(VECTOR *vector) {
   ERROR_NULL(vector->array_);
   
   array_delete(&(vector->array_), NULL);
-  array_create(&(vector->array_), VECTOR_INIT_SIZE);
+  array_create(&(vector->array_), VECTOR_INIT_CAPACITY);
 
   vector->size_ = 0;
 }
@@ -104,11 +104,11 @@ void vector_insert(VECTOR *vector, DATA data, unsigned int index) {
 
   for (unsigned int i = vector->size_;; i--) {
     if (i < index) {
-      tmp->data_[i] = vector->array_->data_[i];
+      *(array_at(tmp, i)) = *(array_at(vector->array_, i));
     } else if (i > index) {
-      tmp->data_[i] = vector->array_->data_[i-1];
+      *(array_at(tmp, i)) = *(array_at(vector->array_, i - 1));
     } else {
-      tmp->data_[i] = data;
+      *(array_at(tmp, i)) = data;
     }
 
     if (i == 0) { break; }
