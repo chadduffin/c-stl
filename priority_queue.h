@@ -36,18 +36,64 @@
 
 typedef struct PRIORITY_QUEUE PRIORITY_QUEUE;
 
+// @name    struct PRIORITY_QUEUE, PRIORITY_QUEUE
+// @purpose Encapsulate a VECTOR data structure to provide additional functions
+//          that are necessary to create and interact with a priority queue.
+// @example
+//
+//          PRIORITY_QUEUE *priority_queue = NULL;
+//
+//          priority_queue_create(&priority_queue, is_less);
+//
+//          /* interact with priority queue */
+//
+//          priority_queue_delete(&priority_queue);
+
 struct PRIORITY_QUEUE {
-  bool (*cmp)(DATA*, DATA*);
+  bool (*cmp_)(DATA*, DATA*);
   VECTOR *vector_;
 };
 
-void priority_queue_create(PRIORITY_QUEUE **priority_queue, bool (*cmp)(DATA*, DATA*));
+// @name    priority_queue_create
+// @purpose Allocate memory for a PRIORITY_QUEUE and update the pointer passed
+//          to the function.
+// @notes   Custom comparator functions can be used to determine how the queue
+//          prioritizes items. It is the client's responsibility to ensure the
+//          stack is deleted when it is done with it.
+
+void priority_queue_create(PRIORITY_QUEUE **priority_queue,
+                           bool (*cmp)(DATA*, DATA*));
+
+// @name    priority_queue_delete
+// @purpose Free memory associated with a PRIORITY_QUEUE pointer safely.
+
 void priority_queue_delete(PRIORITY_QUEUE **priority_queue);
 
+// @name    priority_queue_empty
+// @purpose Return a boolean identifying if the stack is empty.
+
 bool priority_queue_empty(PRIORITY_QUEUE *priority_queue);
+
+// @name    priority_queue_pop
+// @purpose Remove the first item from the queue.
+// @notes   If the queue is empty this will cause an error.
+
 void priority_queue_pop(PRIORITY_QUEUE *priority_queue);
-void priority_queue_push(PRIORITY_QUEUE *priority_queue);
+
+// @name    priority_queue_push
+// @purpose Add an item to the queue.
+
+void priority_queue_push(PRIORITY_QUEUE *priority_queue, DATA data);
+
+// @name    priority_queue_size
+// @purpose Return the size of the queue.
+
 unsigned int priority_queue_size(PRIORITY_QUEUE *priority_queue);
+
+// @name    priority_queue_top
+// @purpose Return a pointer to the data at the front of the queue.
+// @notes   If the queue is empty this will cause an error.
+
 DATA* priority_queue_top(PRIORITY_QUEUE *priority_queue);
 
 #endif // PRIORITY_QUEUE //

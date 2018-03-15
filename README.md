@@ -139,7 +139,16 @@ The `QUEUE` data type has been implemented. The following functionality exists:
 * check size
 
 ### PRIORITY_QUEUE
-*Not yet implemented.*
+The `PRIORITY_QUEUE` data type has been implemented. The following functionality exists:
+
+* creation
+  * custom comparators possible
+* deletion
+* check if empty
+* pop value from front
+* push value into queue
+* check size
+* get value at front of queue
 
 ### SET
 *Not yet implemented.*

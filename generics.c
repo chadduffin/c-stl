@@ -9,10 +9,6 @@ void iterator_delete(ITERATOR **iterator) {
   *iterator = NULL;
 }
 
-bool iterator_compare(ITERATOR *left, ITERATOR *right) {
-  // compare iterators
-}
-
 DATA* iterator_data(ITERATOR *iterator) {
   ERROR_NULL(iterator);
   ERROR_NULL(iterator->container_);
@@ -41,5 +37,13 @@ void iterator_prev(ITERATOR *iterator) {
   ERROR_NULL(iterator->data_);
 
   iterator->prev_(iterator);
+}
+
+bool is_less(DATA *left, DATA *right) {
+  return left->my_int < right->my_int;
+}
+
+bool is_greater(DATA *left, DATA *right) {
+  return left->my_int > right->my_int;
 }
 

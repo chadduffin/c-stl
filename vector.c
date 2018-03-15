@@ -179,3 +179,15 @@ unsigned int vector_size(VECTOR *vector) {
   return vector->size_;
 }
 
+void vector_swap(VECTOR *vector, unsigned int first, unsigned int second) {
+  ERROR_NULL(vector);
+  ERROR_NULL(vector->array_);
+  ERROR_RANGE(first, 0, vector->size_ - 1);
+  ERROR_RANGE(second, 0, vector->size_ - 1);
+
+  DATA tmp = *(array_at(vector->array_, first));
+  *(array_at(vector->array_, first)) = *(array_at(vector->array_, second));
+  *(array_at(vector->array_, second)) = tmp;
+}
+
+

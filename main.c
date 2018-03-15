@@ -4,32 +4,48 @@
 #include "deque.h"
 #include "vector.h"
 #include "forward_list.h"
+#include "priority_queue.h"
 
 int main(int argc, char **argv) {
 
   DATA data;
-  DEQUE *deque = NULL;
+  PRIORITY_QUEUE *priority_queue = NULL;
 
-  deque_create(&deque);
-    
-  for (unsigned int i = 0; i < 10000; i++) {
+  priority_queue_create(&priority_queue, is_less);
+
+  for (unsigned int i = 0; i < 11; i++) {
     data.my_int = i;
-    unsigned int j = (deque->size_ > 0) ? ((i * 0x4f1) >> (i % 100)) % deque->size_ : 0;
-    deque_insert(deque, data, j);
+    priority_queue_push(priority_queue, data);
   }
 
-  deque_erase(deque, 9999);
-  deque_erase(deque, 1000);
-  deque_erase(deque, 100);
-  deque_erase(deque, 10);
-
-  deque_resize(deque, 5);
-
-  for (unsigned int i = 0; i < deque_size(deque); i++) {
-    printf("%i\n", deque_at(deque, i)->my_int);
+  for (unsigned int i = 20; i > 10; i--) {
+    data.my_int = i;
+    priority_queue_push(priority_queue, data);
   }
 
-  deque_delete(&deque, NULL);
+  for (unsigned int i = 21; i < 31; i++) {
+    data.my_int = i;
+    priority_queue_push(priority_queue, data);
+  }
+
+  for (unsigned int i = 40; i > 30; i--) {
+    data.my_int = i;
+    priority_queue_push(priority_queue, data);
+  }
+
+  for (unsigned int i = 41; i < 50; i++) {
+    data.my_int = i;
+    priority_queue_push(priority_queue, data);
+  }
+
+  printf("size %u\n", priority_queue_size(priority_queue));
+
+  for (unsigned int i = 0; i < 50; i++) {
+    printf("top %i\n", priority_queue_top(priority_queue)->my_int);
+    priority_queue_pop(priority_queue);
+  }
+
+  priority_queue_delete(&priority_queue);
 /*
   ARRAY *array = NULL;
   ITERATOR *iterator = NULL;

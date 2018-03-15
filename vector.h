@@ -154,5 +154,10 @@ void vector_resize(VECTOR *vector, unsigned int size);
 
 unsigned int vector_size(VECTOR *vector);
 
+// @name    vector_swap
+// @purpose Swap two items of the vector.
+
+void vector_swap(VECTOR *vector, unsigned int first, unsigned int second);
+
 #endif // VECTOR //
 

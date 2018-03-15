@@ -38,7 +38,7 @@ typedef struct STACK STACK;
 
 // @name    struct STACK, STACK
 // @purpose Encapsulate a VECTOR data structure to provide additional functions
-//          that are necessary to interact with a stack.
+//          that are necessary to create and interact with a stack.
 // @example
 //
 //          STACK *stack = NULL;

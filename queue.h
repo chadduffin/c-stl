@@ -38,7 +38,7 @@ typedef struct QUEUE QUEUE;
 
 // @name    struct QUEUE, QUEUE
 // @purpose Encapsulate a LIST data structure to provide additional functions
-//          that are necessary to interact with a queue.
+//          that are necessary to create and interact with a queue.
 // @example
 //
 //          QUEUE *queue = NULL;

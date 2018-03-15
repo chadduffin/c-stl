@@ -63,10 +63,23 @@ struct ITERATOR {
 
 void  iterator_delete  (ITERATOR **iterator);
 
-bool  iterator_compare (ITERATOR *left, ITERATOR *right);
 DATA* iterator_data    (ITERATOR *iterator);
 void  iterator_next    (ITERATOR *iterator);
 void  iterator_prev    (ITERATOR *iterator);
+
+// @name    is_less
+// @purpose Return true if the data on the left is evaluated to be less than
+//          the data on the right.
+// @notes   When used with a PRIORITY_QUEUE it creates a minimum heap.
+
+bool  is_less          (DATA *left, DATA *right);
+
+// @name    is_greater
+// @purpose Return true if the data on the left is evaluated to be greater than
+//          the data on the right.
+// @notes   When used with a PRIORITY_QUEUE it creates a maximum heap.
+
+bool  is_greater       (DATA *left, DATA *right);
 
 #endif // GENERICS //
 
