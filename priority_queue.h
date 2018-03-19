@@ -39,6 +39,7 @@ typedef struct PRIORITY_QUEUE PRIORITY_QUEUE;
 // @name    struct PRIORITY_QUEUE, PRIORITY_QUEUE
 // @purpose Encapsulate a VECTOR data structure to provide additional functions
 //          that are necessary to create and interact with a priority queue.
+// @notes   The functions 'is_less' and 'is_greater' are defined in generics.h.
 // @example
 //
 //          PRIORITY_QUEUE *priority_queue = NULL;

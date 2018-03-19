@@ -47,3 +47,17 @@ bool is_greater(DATA *left, DATA *right) {
   return left->my_int > right->my_int;
 }
 
+unsigned int hash_string(const char *string, unsigned int bucket_count) {
+  unsigned int hash = 0;
+
+  for (unsigned int i = 0; string[i] != '\0'; i++) {
+    hash = ((hash * 31) + string[i]) % bucket_count;
+  }
+
+  return hash;
+}
+
+unsigned int hash_number(const long int number, unsigned int bucket_count) {
+  return abs(number) % bucket_count;
+}
+

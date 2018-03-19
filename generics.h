@@ -32,12 +32,28 @@
 
 #include "error.h"
 
+typedef union KEY KEY;
 typedef union DATA DATA;
 typedef struct ITERATOR ITERATOR;
 
+// @name    union KEY, KEY
+// @purpose Provide a structure to act as a key for data structures that store
+//          key - value pairs of data.
+// @example
+//
+//          union KEY {
+//            int my_num;
+//            char *my_string;
+//          };
+
+union KEY {
+  int number_;
+  char *string_;
+};
+
 // @name    union DATA, DATA
-// @purpose Provide a basic unit of storage for the containers
-//          that can be expanded to include other data types.
+// @purpose Provide a basic unit of storage for the containers that can be
+//          expanded to include other data types.
 // @example
 //
 //          union DATA {
@@ -61,25 +77,38 @@ struct ITERATOR {
   };
 };
 
-void  iterator_delete  (ITERATOR **iterator);
+void iterator_delete(ITERATOR **iterator);
 
-DATA* iterator_data    (ITERATOR *iterator);
-void  iterator_next    (ITERATOR *iterator);
-void  iterator_prev    (ITERATOR *iterator);
+DATA* iterator_data(ITERATOR *iterator);
+void iterator_next(ITERATOR *iterator);
+void iterator_prev(ITERATOR *iterator);
 
 // @name    is_less
 // @purpose Return true if the data on the left is evaluated to be less than
 //          the data on the right.
 // @notes   When used with a PRIORITY_QUEUE it creates a minimum heap.
 
-bool  is_less          (DATA *left, DATA *right);
+bool is_less(DATA *left, DATA *right);
 
 // @name    is_greater
 // @purpose Return true if the data on the left is evaluated to be greater than
 //          the data on the right.
 // @notes   When used with a PRIORITY_QUEUE it creates a maximum heap.
 
-bool  is_greater       (DATA *left, DATA *right);
+bool is_greater(DATA *left, DATA *right);
+
+// @name    hash_string
+// @purpose Return the hashed value of a character string in respect to the
+//          given bucket count.
+// @notes   If the string is not null terminated the hash will not be correct.
+
+unsigned int hash_string(const char *string, unsigned int bucket_count);
+
+// @name    hash_number
+// @purpose Return the hashed value of an unsigned integer in respect to the
+//          given bucket count.
+
+unsigned int hash_number(const long int number, unsigned int bucket_count);
 
 #endif // GENERICS //
 
