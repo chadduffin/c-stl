@@ -171,7 +171,7 @@ void list_remove(LIST *list, DATA data) {
   LIST_NODE *tmp = NULL, **indirect = &(list->head_);
 
   while ((tmp = *indirect)) {
-    if (!memcmp(&(tmp->data_), &data, sizeof(DATA))) {
+    if (memcmp(&(tmp->data_), &data, sizeof(DATA))) {
       if (tmp->next_) {
         tmp->next_->prev_ = tmp->prev_;
       } else if (tmp == list->tail_) {

@@ -42,8 +42,8 @@ typedef struct ITERATOR ITERATOR;
 // @example
 //
 //          union KEY {
-//            int my_num;
-//            char *my_string;
+//            int number_;
+//            char *string_;
 //          };
 
 union KEY {
@@ -57,12 +57,11 @@ union KEY {
 // @example
 //
 //          union DATA {
-//            int my_num;
-//            void *my_void;
+//            int number_;
 //          };
 
 union DATA {
-  int my_int;
+  int number_;
 };
 
 struct ITERATOR {
@@ -96,6 +95,12 @@ bool is_less(DATA *left, DATA *right);
 // @notes   When used with a PRIORITY_QUEUE it creates a maximum heap.
 
 bool is_greater(DATA *left, DATA *right);
+
+// @name    key_is_greater
+// @purpose Return true if the key on the left is evaluated to be greater than
+//          the key on the right.
+
+bool key_is_less(KEY *left, KEY *right);
 
 // @name    hash_string
 // @purpose Return the hashed value of a character string in respect to the

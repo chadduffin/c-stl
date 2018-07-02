@@ -40,11 +40,15 @@ void iterator_prev(ITERATOR *iterator) {
 }
 
 bool is_less(DATA *left, DATA *right) {
-  return left->my_int < right->my_int;
+  return left->number_ < right->number_;
 }
 
 bool is_greater(DATA *left, DATA *right) {
-  return left->my_int > right->my_int;
+  return left->number_ > right->number_;
+}
+
+bool key_is_less(KEY *left, KEY *right) {
+  return left->number_ < right->number_;
 }
 
 unsigned int hash_string(const char *string, unsigned int bucket_count) {

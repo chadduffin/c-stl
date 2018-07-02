@@ -5,6 +5,7 @@
 #include "vector.h"
 #include "forward_list.h"
 #include "priority_queue.h"
+#include "red_black_tree.h"
 
 int main(int argc, char **argv) {
 /*

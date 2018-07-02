@@ -25,10 +25,7 @@ struct RED_BLACK_TREE_NODE {
   RED_BLACK_TREE_NODE *left_, *right_, *parent_;
 };
 
-RED_BLACK_TREE_NODE NIL = { .color_ = 'b',
-                            .left_ = &NIL,
-                            .right_ = &NIL,
-                            .parent_ = &NIL };
+extern RED_BLACK_TREE_NODE NIL;
 
 void red_black_tree_create(RED_BLACK_TREE **red_black_tree,
                            bool (*cmp)(KEY*, KEY*));
@@ -37,15 +34,21 @@ void red_black_tree_delete(RED_BLACK_TREE **red_black_tree);
 void red_black_tree_clear(RED_BLACK_TREE *red_black_tree);
 bool red_black_tree_empty(RED_BLACK_TREE *red_black_tree);
 void red_black_tree_erase(RED_BLACK_TREE *red_black_tree, KEY key);
-DATA* red_black_tree_find(RED_BLACK_TREE *red_black_tree, KEY key);
+void red_black_tree_erase_fixup(RED_BLACK_TREE *red_black_tree, RED_BLACK_TREE_NODE *node);
+RED_BLACK_TREE_NODE* red_black_tree_find(RED_BLACK_TREE *red_black_tree, KEY key);
 void red_black_tree_insert(RED_BLACK_TREE *red_black_tree, KEY key, DATA data);
+void red_black_tree_insert_fixup(RED_BLACK_TREE *red_black_tree, RED_BLACK_TREE_NODE *node);
 unsigned int red_black_tree_size(RED_BLACK_TREE *red_black_tree);
 
-void red_black_tree_rotate_left(RED_BLACK_TREE_NODE *node);
-void red_black_tree_rotate_right(RED_BLACK_TREE_NODE *node);
+void red_black_tree_transplant(RED_BLACK_TREE *red_black_tree,
+                               RED_BLACK_TREE_NODE *src,
+                               RED_BLACK_TREE_NODE *dst);
+void red_black_tree_rotate_left(RED_BLACK_TREE *red_black_tree, RED_BLACK_TREE_NODE *node);
+void red_black_tree_rotate_right(RED_BLACK_TREE *red_black_tree, RED_BLACK_TREE_NODE *node);
 RED_BLACK_TREE_NODE* red_black_tree_parent(RED_BLACK_TREE_NODE *node);
 RED_BLACK_TREE_NODE* red_black_tree_grandparent(RED_BLACK_TREE_NODE *node);
 RED_BLACK_TREE_NODE* red_black_tree_sibling(RED_BLACK_TREE_NODE *node);
 RED_BLACK_TREE_NODE* red_black_tree_uncle(RED_BLACK_TREE_NODE *node);
+RED_BLACK_TREE_NODE* red_black_tree_minimum(RED_BLACK_TREE_NODE *node);
 
 #endif // RED_BLACK_TREE //

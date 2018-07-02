@@ -121,7 +121,7 @@ void forward_list_remove(FORWARD_LIST *forward_list, DATA data) {
   FORWARD_LIST_NODE *tmp = NULL, **indirect = &(forward_list->head_);
 
   while ((tmp = *indirect)) {
-    if (!memcmp(&(tmp->data_), &data, sizeof(DATA))) {
+    if (memcmp(&(tmp->data_), &data, sizeof(DATA))) {
       *indirect = (*indirect)->next_;
 
       free(tmp);
