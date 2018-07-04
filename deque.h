@@ -25,14 +25,14 @@
 #ifndef __DEQUE__
 #define __DEQUE__
 
-#include <limits.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
 #include "error.h"
 #include "array.h"
 #include "generics.h"
+
+#include <limits.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
 // Default size of each DEQUE segment
 #define DEQUE_SEGMENT_SIZE 128

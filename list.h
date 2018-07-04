@@ -25,13 +25,13 @@
 #ifndef __LIST__
 #define __LIST__
 
-#include <limits.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
 #include "error.h"
 #include "generics.h"
+
+#include <limits.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct LIST LIST;
 typedef struct LIST_NODE LIST_NODE;

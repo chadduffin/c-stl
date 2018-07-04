@@ -25,14 +25,14 @@
 #ifndef __PRIORITY_QUEUE__
 #define __PRIORITY_QUEUE__
 
-#include <limits.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
 #include "error.h"
 #include "vector.h"
 #include "generics.h"
+
+#include <limits.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct PRIORITY_QUEUE PRIORITY_QUEUE;
 

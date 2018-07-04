@@ -25,13 +25,13 @@
 #ifndef __ARRAY__
 #define __ARRAY__
 
-#include <limits.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
 #include "error.h"
 #include "generics.h"
+
+#include <limits.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct ARRAY ARRAY;
 
@@ -68,8 +68,6 @@ void array_create(ARRAY **array, unsigned int size);
 //          on each item in the array before the array is freed.
 
 void array_delete(ARRAY **array, void (*f)(DATA*));
-
-void array_iterator_create(ITERATOR **iterator, ARRAY *array);
 
 // @name    array_at
 // @purpose Return a pointer to the data at a specific index in the array.
@@ -116,6 +114,8 @@ void array_handle(ARRAY *array, void (*f)(DATA*));
 // @purpose Return the size of the array.
 
 unsigned int array_size(ARRAY *array);
+
+void array_iterator_create(ITERATOR **iterator, ARRAY *array);
 
 DATA* array_iterator_data(ITERATOR *iterator);
 void array_iterator_next(ITERATOR *iterator);

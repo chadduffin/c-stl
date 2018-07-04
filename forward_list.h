@@ -25,13 +25,13 @@
 #ifndef __FORWARD_LIST__
 #define __FORWARD_LIST__
 
-#include <limits.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
 #include "error.h"
 #include "generics.h"
+
+#include <limits.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct FORWARD_LIST FORWARD_LIST;
 typedef struct FORWARD_LIST_NODE FORWARD_LIST_NODE;

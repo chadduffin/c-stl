@@ -25,12 +25,12 @@
 #ifndef __GENERICS__
 #define __GENERICS__
 
-#include <limits.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
 #include "error.h"
+
+#include <limits.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef union KEY KEY;
 typedef union DATA DATA;
