@@ -55,19 +55,18 @@ void red_black_tree_create(RED_BLACK_TREE **red_black_tree,
                            bool (*cmp)(KEY*, KEY*));
 void red_black_tree_delete(RED_BLACK_TREE **red_black_tree);
 
-void red_black_tree_clear(RED_BLACK_TREE *red_black_tree);
-void red_black_tree_clear_inner(RED_BLACK_TREE_NODE *node);
+void red_black_tree_clear(RED_BLACK_TREE_NODE *node);
 bool red_black_tree_empty(RED_BLACK_TREE *red_black_tree);
 void red_black_tree_erase(RED_BLACK_TREE *red_black_tree, KEY key);
-void red_black_tree_erase_fixup(RED_BLACK_TREE *red_black_tree,
+void red_black_tree_erase_(RED_BLACK_TREE *red_black_tree,
                                 RED_BLACK_TREE_NODE *node);
 RED_BLACK_TREE_NODE* red_black_tree_find(RED_BLACK_TREE *red_black_tree,
                                          KEY key);
 void red_black_tree_insert(RED_BLACK_TREE *red_black_tree, KEY key, DATA data);
-void red_black_tree_insert_fixup(RED_BLACK_TREE *red_black_tree,
+void red_black_tree_insert_(RED_BLACK_TREE *red_black_tree,
                                  RED_BLACK_TREE_NODE *node);
+RED_BLACK_TREE_NODE* red_black_tree_minimum(RED_BLACK_TREE_NODE *node);
 unsigned int red_black_tree_size(RED_BLACK_TREE *red_black_tree);
-
 void red_black_tree_transplant(RED_BLACK_TREE *red_black_tree,
                                RED_BLACK_TREE_NODE *src,
                                RED_BLACK_TREE_NODE *dst);
@@ -75,7 +74,6 @@ void red_black_tree_rotate_left(RED_BLACK_TREE *red_black_tree,
                                 RED_BLACK_TREE_NODE *node);
 void red_black_tree_rotate_right(RED_BLACK_TREE *red_black_tree,
                                  RED_BLACK_TREE_NODE *node);
-RED_BLACK_TREE_NODE* red_black_tree_minimum(RED_BLACK_TREE_NODE *node);
 
 #endif // RED_BLACK_TREE //
 

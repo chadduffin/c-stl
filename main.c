@@ -1,11 +1,12 @@
-#include "list.h"
 #include "array.h"
-#include "stack.h"
 #include "deque.h"
-#include "vector.h"
 #include "forward_list.h"
+#include "list.h"
+#include "map.h"
 #include "priority_queue.h"
 #include "red_black_tree.h"
+#include "stack.h"
+#include "vector.h"
 
 int main(int argc, char **argv) {
 /*

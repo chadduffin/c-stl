@@ -44,7 +44,7 @@ typedef struct PRIORITY_QUEUE PRIORITY_QUEUE;
 //
 //          PRIORITY_QUEUE *priority_queue = NULL;
 //
-//          priority_queue_create(&priority_queue, is_less);
+//          priority_queue_create(&priority_queue, &is_less);
 //
 //          /* interact with priority queue */
 //

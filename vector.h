@@ -126,7 +126,7 @@ void vector_handle(VECTOR *vector, void (*f)(DATA*));
 // @name    vector_insert
 // @purpose Insert an item into a specific index of the vector.
 // @notes   This function will cause an error if the index is not between 0 and
-//          the size of the vector inclusive,
+//          the size of the vector, inclusive.
 
 void vector_insert(VECTOR *vector, DATA data, unsigned int index);
 

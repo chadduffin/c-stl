@@ -20,31 +20,22 @@ void red_black_tree_delete(RED_BLACK_TREE **red_black_tree) {
   ERROR_NULL(red_black_tree);
   ERROR_NULL(*red_black_tree);
 
-  red_black_tree_clear(*red_black_tree);
+  red_black_tree_clear((*red_black_tree)->root_);
 
   free(*red_black_tree);
 
   *red_black_tree = NULL;
 }
 
-void red_black_tree_clear(RED_BLACK_TREE *red_black_tree) {
-  ERROR_NULL(red_black_tree);
-
-  red_black_tree_clear_inner(red_black_tree->root_);
-
-  red_black_tree->size_ = 0;
-  red_black_tree->root_ = &NIL;
-}
-
-void red_black_tree_clear_inner(RED_BLACK_TREE_NODE *node) {
+void red_black_tree_clear(RED_BLACK_TREE_NODE *node) {
   ERROR_NULL(node);
 
   if (node->left_ != &NIL) {
-    red_black_tree_clear_inner(node->left_);
+    red_black_tree_clear(node->left_);
   }
 
   if (node->right_ != &NIL) {
-    red_black_tree_clear_inner(node->right_);
+    red_black_tree_clear(node->right_);
   }
 
   if (node != &NIL) {
@@ -97,28 +88,29 @@ void red_black_tree_erase(RED_BLACK_TREE *red_black_tree, KEY key) {
   }
 
   if (original_color == 'b') {
-    red_black_tree_erase_fixup(red_black_tree, child);
+    red_black_tree_erase_(red_black_tree, child);
   }
 
   red_black_tree->size_ -= 1;
+
+  free(node);
 }
 
-void red_black_tree_erase_fixup(RED_BLACK_TREE *red_black_tree,
+void red_black_tree_erase_(RED_BLACK_TREE *red_black_tree,
                                 RED_BLACK_TREE_NODE *node) {
   ERROR_NULL(red_black_tree);
   ERROR_NULL(node);
 
-  RED_BLACK_TREE_NODE *parent = node->parent_;
   RED_BLACK_TREE_NODE *sibling = NULL;
 
   while ((node != red_black_tree->root_) && (node->color_ == 'b')) {
-    if (node == parent->left_) {
-      sibling = parent->right_;
+    if (node == node->parent_->left_) {
+      sibling = node->parent_->right_;
 
       if (sibling->color_ == 'r') {
         sibling->color_ = 'b';
-        parent->color_ = 'r';
-        red_black_tree_rotate_left(red_black_tree, parent);
+        node->parent_->color_ = 'r';
+        red_black_tree_rotate_left(red_black_tree, node->parent_);
         sibling = node->parent_->right_;
       }
       
@@ -139,13 +131,13 @@ void red_black_tree_erase_fixup(RED_BLACK_TREE *red_black_tree,
         red_black_tree_rotate_left(red_black_tree, node->parent_);
         node = red_black_tree->root_;
       }
-    } else if (node == parent->right_) {
-      sibling = parent->left_;
+    } else if (node == node->parent_->right_) {
+      sibling = node->parent_->left_;
 
       if (sibling->color_ == 'r') {
         sibling->color_ = 'b';
-        parent->color_ = 'r';
-        red_black_tree_rotate_right(red_black_tree, parent);
+        node->parent_->color_ = 'r';
+        red_black_tree_rotate_right(red_black_tree, node->parent_);
         sibling = node->parent_->left_;
       }
       
@@ -223,11 +215,11 @@ void red_black_tree_insert(RED_BLACK_TREE *red_black_tree, KEY key, DATA data) {
     root->right_ = tmp;
   }
 
-  red_black_tree_insert_fixup(red_black_tree, tmp);
+  red_black_tree_insert_(red_black_tree, tmp);
   red_black_tree->size_ += 1;
 }
 
-void red_black_tree_insert_fixup(RED_BLACK_TREE *red_black_tree,
+void red_black_tree_insert_(RED_BLACK_TREE *red_black_tree,
                                  RED_BLACK_TREE_NODE *node) {
   ERROR_NULL(red_black_tree);
   ERROR_NULL(node);
@@ -279,6 +271,16 @@ void red_black_tree_insert_fixup(RED_BLACK_TREE *red_black_tree,
   }
 
   red_black_tree->root_->color_ = 'b';
+}
+
+RED_BLACK_TREE_NODE* red_black_tree_minimum(RED_BLACK_TREE_NODE *node) {
+  ERROR_NULL(node);
+
+  while (node->left_ != &NIL) {
+    node = node->left_;
+  }
+
+  return node;
 }
 
 unsigned int red_black_tree_size(RED_BLACK_TREE *red_black_tree) {
@@ -356,15 +358,5 @@ void red_black_tree_rotate_right(RED_BLACK_TREE *red_black_tree,
 
   tmp->right_ = node;
   node->parent_ = tmp;
-}
-
-RED_BLACK_TREE_NODE* red_black_tree_minimum(RED_BLACK_TREE_NODE *node) {
-  ERROR_NULL(node);
-
-  while (node->left_ != &NIL) {
-    node = node->left_;
-  }
-
-  return node;
 }
 
