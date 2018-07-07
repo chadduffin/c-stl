@@ -7,6 +7,7 @@
 #include "red_black_tree.h"
 #include "stack.h"
 #include "vector.h"
+#include "quad_tree.h"
 
 int main(int argc, char **argv) {
 /*

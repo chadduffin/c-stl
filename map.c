@@ -50,6 +50,14 @@ DATA* map_find(MAP *map, KEY key) {
   return &(red_black_tree_find(map->red_black_tree_, key)->data_);
 }
 
+void map_handle(MAP *map, void (*f)(DATA*)) {
+  ERROR_NULL(map);
+  ERROR_NULL(f);
+  ERROR_NULL(map->red_black_tree_);
+
+  red_black_tree_handle(map->red_black_tree_->root_, f);
+}
+
 void map_insert(MAP *map, KEY key, DATA data) {
   ERROR_NULL(map);
   ERROR_NULL(map->red_black_tree_);

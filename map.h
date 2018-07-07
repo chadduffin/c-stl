@@ -88,6 +88,11 @@ void map_erase(MAP *map, KEY key);
 
 DATA* map_find(MAP *map, KEY key);
 
+// @name    map_handle
+// @purpose Call a specified function on the data of each item in the map.
+
+void map_handle(MAP *map, void (*f)(DATA*));
+
 // @name    map_insert
 // @purpose Insert an item into the map with the specified KEY and DATA.
 

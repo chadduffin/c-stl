@@ -1,4 +1,4 @@
-// Copyright 2018 Chad S Duffin
+// Copyright 2018 Google
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -62,6 +62,7 @@ void red_black_tree_erase_(RED_BLACK_TREE *red_black_tree,
                                 RED_BLACK_TREE_NODE *node);
 RED_BLACK_TREE_NODE* red_black_tree_find(RED_BLACK_TREE *red_black_tree,
                                          KEY key);
+void red_black_tree_handle(RED_BLACK_TREE_NODE *node, void (*f)(DATA*));
 void red_black_tree_insert(RED_BLACK_TREE *red_black_tree, KEY key, DATA data);
 void red_black_tree_insert_(RED_BLACK_TREE *red_black_tree,
                                  RED_BLACK_TREE_NODE *node);

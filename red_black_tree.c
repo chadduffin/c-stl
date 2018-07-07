@@ -181,6 +181,23 @@ RED_BLACK_TREE_NODE* red_black_tree_find(RED_BLACK_TREE *red_black_tree,
   return node;
 }
 
+void red_black_tree_handle(RED_BLACK_TREE_NODE *node, void (*f)(DATA*)) {
+  ERROR_NULL(node);
+  ERROR_NULL(f);
+
+  if (node->left_ != &NIL) {
+    red_black_tree_handle(node->left_, f);
+  }
+
+  if (node->right_ != &NIL) {
+    red_black_tree_handle(node->right_, f);
+  }
+
+  if (node != &NIL) {
+    f(&(node->data_));
+  }
+}
+
 void red_black_tree_insert(RED_BLACK_TREE *red_black_tree, KEY key, DATA data) {
   ERROR_NULL(red_black_tree);
 
